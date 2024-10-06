@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Authentication Needed</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="main-content">
+                <h1>You must be <%= authLevel %> to view this page!</h1>
+                <% if (authLevel === 'logged in') { %>
+                    <h2><a href="/login">Log In</a></h2>
+                <% } %>
+                <p><a href="/">Return Home</a></p>
+            </div>
+        </div>
+    </body>
+</html>
