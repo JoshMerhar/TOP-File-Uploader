@@ -42,8 +42,7 @@ const newUserPost = [
             password: hashedPassword
         }
         db.createUser(newUser);
-        // res.redirect("/login");
-        res.send('Account created!');
+        res.render('newUserSuccess');
     }
 ];
 

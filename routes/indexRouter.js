@@ -6,9 +6,9 @@ require('../passport-config');
 
 indexRouter.get('/', indexController.indexGet);
 
-// indexRouter.get('/login', indexController.getLogin);
+indexRouter.get('/login', indexController.getLogin);
 
-/* indexRouter.post('/login', (req, res, next) => {
+indexRouter.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, options) => {
         if (err) {
             return next(err);
@@ -25,6 +25,15 @@ indexRouter.get('/', indexController.indexGet);
             // return res.redirect('/user/library');
         });
     })(req, res, next);
-}); */
+});
+
+indexRouter.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
+    });
+});
 
 module.exports = indexRouter;
