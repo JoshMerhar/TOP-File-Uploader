@@ -7,4 +7,8 @@ userRouter.get('/signup', userController.newUserGet);
 
 userRouter.post('/signup', userController.newUserPost);
 
+userRouter.get('/library', auth.isAuth, (req, res, next) => {
+    res.render('userLibrary', { username: req.user.username });
+});
+
 module.exports = userRouter;

@@ -21,16 +21,27 @@ model Session {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  username  String  @unique
-  password  String  
+  id        Int         @id @default(autoincrement())
+  username  String      @unique
+  password  String 
+  folders   Folder[]
   files     File[]
 }
 
+model Folder {
+  id          String      @id @default(cuid())
+  folderName  String
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  files       File[]
+}
+
 model File {
-  id          Int   @id @default(autoincrement())
+  id          String      @id @default(cuid())
   filename    String
   createdAt   DateTime    @default(now())
-  owner       User  @relation(fields: [ownerId], references: [id])
+  owner       User        @relation(fields: [ownerId], references: [id])
   ownerId     Int
+  folder      Folder      @relation(fields: [folderId], references: [id])
+  folderId    String
 }

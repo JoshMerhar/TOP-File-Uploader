@@ -12,6 +12,15 @@ async function createUser(userInfo) {
     })
 }
 
+async function checkUsername(username) {
+  const usernameTaken = await prisma.user.findUniqueOrThrow({
+      where: {
+        username: username
+      }
+  })
+  return usernameTaken;
+}
+
 /* main()
   .then(async () => {
     await prisma.$disconnect()
@@ -24,4 +33,5 @@ async function createUser(userInfo) {
 
 module.exports = {
     createUser,
+    checkUsername,
 }

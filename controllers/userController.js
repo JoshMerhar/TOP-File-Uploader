@@ -28,14 +28,14 @@ const newUserPost = [
             });
         }
         const { username, password } = req.body;
-        // const takenUsername = await db.checkUsernameEmail(username);
-        /* if (takenUsername) {
+        const takenUsername = await db.checkUsername(username);
+        if (takenUsername) {
             const error = { msg: 'Username already taken' }
             return res.status(400).render('newUserError', {
                 username: req.body.username,
                 errors: [error]
             });
-        } */
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
             username: username,

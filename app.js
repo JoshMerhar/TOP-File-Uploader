@@ -10,6 +10,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const indexRouter = require('./routes/indexRouter');
 const userRouter = require('./routes/userRouter');
+const fileRouter = require('./routes/fileRouter');
 require('dotenv').config();
 
 const app = express();
@@ -59,6 +60,7 @@ app.use(
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/file', fileRouter);
 
 app.use(function(req, res, next) {
     next(createError(404));

@@ -21,8 +21,7 @@ indexRouter.post('/login', (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            return res.send('Logged in!');
-            // return res.redirect('/user/library');
+            return res.redirect('/user/library');
         });
     })(req, res, next);
 });
