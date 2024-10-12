@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>New Folder</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="main-content">
+                <%- include("partials/errors.ejs") %>
+                <form action="/file/new-folder" method="POST">
+                    <label for="folderName">Name: </label>
+                    <input type="text" name="folderName" id="folderName" maxlength="50" required />
+                    <button type="submit">Submit</button>
+                </form>
+                <a href="/library">Cancel</a>
+            </div>
+        </div>
+    </body>
+</html>

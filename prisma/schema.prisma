@@ -44,4 +44,5 @@ model File {
   ownerId     Int
   folder      Folder      @relation(fields: [folderId], references: [id])
   folderId    String
+  url         String      @default("#")
 }

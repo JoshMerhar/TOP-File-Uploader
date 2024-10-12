@@ -8,9 +8,20 @@
         <div class="container">
             <div class="main-content">
                 <h1>Welcome, <%= username %>.</h1>
-                <a href="/file/new-file">Upload a File</a>
-                <a href="/file/new-folder">New Folder</a>
-                <a href="/logout">Log Out</a>
+                <div class="folders-container">
+                    <% if (folders.length > 0) { %>
+                        <% folders.forEach(folder => { %>
+                            <div class="folder-row">
+                                <h3><a href="/library/folder/<%= folder.id %>"><%= folder.folderName %></a></h3>
+                            </div>    
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <div class="links-container">
+                    <a href="/library/new-file">Upload a File</a>
+                    <a href="/library/new-folder">New Folder</a>
+                    <a href="/logout">Log Out</a>
+                </div>
             </div>
         </div>
     </body>

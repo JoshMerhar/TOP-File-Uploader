@@ -60,7 +60,7 @@ app.use(
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/file', fileRouter);
+app.use('/library', fileRouter);
 
 app.use(function(req, res, next) {
     next(createError(404));

@@ -7,13 +7,21 @@
     <body>
         <div class="container">
             <div class="main-content">
-                <form action="/file/new-file" method="POST" enctype="multipart/form-data">
+                <%- include("partials/errors.ejs") %>
+                <form action="/library/new-file" enctype="multipart/form-data" method="POST">
                     <input type="file" name="uploaded_file" />
-                    <label for="filename">Name: </label>
+                    <label for="filename">Filename: </label>
                     <input type="text" name="filename" id="filename" maxlength="50" required />
+                    <label for="file_folder">Folder: </label>
+                    <select name="file_folder" id="file_folder" required>
+                        <option value="" selected="true" disabled="disabled">--SELECT FOLDER--</option>
+                        <% folders.forEach(folder => { %>
+                            <option value="<%= folder.id %>"><%= folder.folderName %></option>    
+                        <% }) %>
+                    </select>
                     <button type="submit">Submit</button>
                 </form>
-                <a href="/user/library">Cancel</a>
+                <a href="/library">Cancel</a>
             </div>
         </div>
     </body>

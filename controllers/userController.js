@@ -41,7 +41,7 @@ const newUserPost = [
             username: username,
             password: hashedPassword
         }
-        db.createUser(newUser);
+        await db.createUser(newUser);
         res.render('newUserSuccess');
     }
 ];

@@ -13,12 +13,70 @@ async function createUser(userInfo) {
 }
 
 async function checkUsername(username) {
-  const usernameTaken = await prisma.user.findUniqueOrThrow({
+    const usernameTaken = await prisma.user.findUniqueOrThrow({
+        where: {
+            username: username
+        }
+    })
+    return usernameTaken;
+}
+
+async function showAllFolders(userId) {
+    const userFolders = await prisma.folder.findMany({
       where: {
-        username: username
+        ownerId: userId
+      }
+    })
+    return userFolders;
+}
+
+async function createFolder(folderInfo) {
+    const { folderName, ownerId } = folderInfo;
+    await prisma.folder.create({
+        data: {
+            folderName: folderName,
+            ownerId: ownerId
+        }
+    })
+}
+
+async function createFile(fileInfo) {
+  const { filename, ownerId, folderId, url } = fileInfo;
+  await prisma.file.create({
+      data: {
+          filename: filename,
+          ownerId: ownerId,
+          folderId: folderId,
+          url: url
       }
   })
-  return usernameTaken;
+}
+
+async function getFolderFiles(folderId) {
+  const files = await prisma.file.findMany({
+      where: {
+          folderId: folderId
+      }
+  })
+  return files;
+}
+
+async function getFolderInfo(folderId) {
+    const folder = await prisma.folder.findUnique({
+        where: {
+            id: folderId
+        }
+    })
+    return folder;
+}
+
+async function getSingleFile(fileId) {
+    const file = await prisma.file.findUnique({
+        where: {
+            id: fileId
+        }
+    })
+    return file;
 }
 
 /* main()
@@ -34,4 +92,10 @@ async function checkUsername(username) {
 module.exports = {
     createUser,
     checkUsername,
+    showAllFolders,
+    createFolder,
+    createFile,
+    getFolderFiles,
+    getFolderInfo,
+    getSingleFile,
 }

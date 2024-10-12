@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title><%= folder.folderName %></title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="main-content">
+                <div class="files-container">
+                    <h1><%= folder.folderName %></h1>
+                    <% if (files) { %>
+                        <% files.forEach(file => { %>
+                            <h3><a href="/library/folder/file/<%= file.id %>"><%= file.filename %></a></h3>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <a href="/library">Library</a>
+            </div>
+        </div>
+    </body>
+</html>

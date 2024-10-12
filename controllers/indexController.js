@@ -5,7 +5,7 @@ async function indexGet(req, res) {
 async function getLogin(req, res) {
     // Redirect to user portal if already logged in
     if (req.user) {
-        return res.redirect('/user/library');
+        return res.redirect('/library');
     }
     // Retrieve error messages from session
     const errorMessage = req.session.messages || [];
