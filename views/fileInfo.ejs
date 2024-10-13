@@ -10,6 +10,8 @@
                 <h1><%= file.filename %></h1>
                 <p>URL: <%= file.url %></p>
                 <p>Uploaded: <%= file.createdAt %></p>
+                <a href="/library/folder/file/<%= file.id %>/edit">Edit File Info</a>
+                <a href="/library/folder/file/<%= file.id %>/delete">Delete File</a>
                 <a href="/library/folder/<%= file.folderId %>">Back to Folder</a>
             </div>
         </div>

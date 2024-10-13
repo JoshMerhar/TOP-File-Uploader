@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Delete Folder</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="main-content">
+                <h1>Are you sure you want to delete "<%= folder.folderName %>" and all of its contents?</h1>
+                <h2>THIS ACTION CANNOT BE UNDONE.</h2>
+                <form action="/library/folder/<%= folder.id %>/delete" method="POST">
+                    <button type="submit">Delete Folder</button>
+                </form>
+                <a href="/library/folder/<%= folder.id %>">No! Go back</a>
+            </div>
+        </div>
+    </body>
+</html>

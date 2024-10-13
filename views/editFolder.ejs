@@ -2,18 +2,18 @@
 <html>
     <head>
         <link rel="stylesheet" href="/stylesheets/styles.css">
-        <title>New Folder</title>
+        <title>Edit Folder</title>
     </head>
     <body>
         <div class="container">
             <div class="main-content">
                 <%- include("partials/errors.ejs") %>
-                <form action="/library/new-folder" method="POST">
+                <form action="/library/folder/<%= folder.id %>/edit" method="POST">
                     <label for="folderName">Name: </label>
-                    <input type="text" name="folderName" id="folderName" maxlength="50" required />
+                    <input type="text" name="folderName" id="folderName" value="<%= folder.folderName %>" maxlength="50" required />
                     <button type="submit">Submit</button>
                 </form>
-                <a href="/library">Cancel</a>
+                <a href="/library/folder/<%= folder.id %>">Cancel</a>
             </div>
         </div>
     </body>

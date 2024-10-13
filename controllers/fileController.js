@@ -26,6 +26,30 @@ const newFolderPost = [
     }
 ]
 
+const editFolderPost = [
+    validateFolder,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const folder = await getFolderInfo(req.params.id);
+            return res.status(400).render('editFolder', {
+                folder: folder,
+                errors: errors.array()
+            });
+        }
+        const { folderName } = req.body;
+        const editedFolder = {
+            folderName: folderName
+        }
+        await db.updateFolder(editedFolder, req.params.id);
+        res.redirect(`/library/folder/${req.params.id}`);
+    }
+]
+
+async function deleteFolderPost(folderId) {
+    await db.deleteFolder(folderId);
+}
+
 async function getUserFolders(userId) {
     const folders = await db.showAllFolders(userId);
     return folders;
@@ -60,11 +84,39 @@ const newFilePost = [
             folderId: file_folder,
             url: url
         }
-        console.log(newFile);
         await db.createFile(newFile);
         res.redirect(`/library/folder/${file_folder}`);
     }
 ];
+
+const validateUpdatedFile = [
+    body("filename").trim()
+        .isLength({ min: 1, max: 50 }).withMessage("Filename must be between 1 and 50 characters.")
+]
+
+const editFilePost = [
+    validateUpdatedFile,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const file = await getFileInfo(req.params.id);
+            return res.status(400).render('editFile', {
+                file: file,
+                errors: errors.array()
+            });
+        }
+        const { filename } = req.body;
+        const editedFile = {
+            filename: filename
+        }
+        await db.updateFile(editedFile, req.params.id);
+        res.redirect(`/library/folder/file/${req.params.id}`);
+    }
+];
+
+async function deleteFilePost(fileId) {
+    await db.deleteFile(fileId);
+}
 
 async function getFolderInfo(folderId) {
     const folder = await db.getFolderInfo(folderId);
@@ -83,8 +135,12 @@ async function getFileInfo(fileId) {
 
 module.exports = {
     newFolderPost,
+    editFolderPost,
+    deleteFolderPost,
     getUserFolders,
     newFilePost,
+    editFilePost,
+    deleteFilePost,
     getFolderInfo,
     getFolderFiles,
     getFileInfo,

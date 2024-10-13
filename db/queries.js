@@ -25,6 +25,9 @@ async function showAllFolders(userId) {
     const userFolders = await prisma.folder.findMany({
       where: {
         ownerId: userId
+      },
+      orderBy: {
+        folderName: 'asc'
       }
     })
     return userFolders;
@@ -40,6 +43,14 @@ async function createFolder(folderInfo) {
     })
 }
 
+async function deleteFolder(folderId) {
+    await prisma.folder.delete({
+        where: {
+            id: folderId
+        }
+    })
+}
+
 async function createFile(fileInfo) {
   const { filename, ownerId, folderId, url } = fileInfo;
   await prisma.file.create({
@@ -50,6 +61,14 @@ async function createFile(fileInfo) {
           url: url
       }
   })
+}
+
+async function deleteFile(fileId) {
+    await prisma.file.delete({
+        where: {
+            id: fileId
+        }
+    })
 }
 
 async function getFolderFiles(folderId) {
@@ -70,6 +89,18 @@ async function getFolderInfo(folderId) {
     return folder;
 }
 
+async function updateFolder(editedFolder, folderId) {
+    const { folderName } = editedFolder;
+    await prisma.folder.update({
+        where: {
+            id: folderId
+        },
+        data: {
+            folderName: folderName
+        },
+    })
+}
+
 async function getSingleFile(fileId) {
     const file = await prisma.file.findUnique({
         where: {
@@ -77,6 +108,18 @@ async function getSingleFile(fileId) {
         }
     })
     return file;
+}
+
+async function updateFile(editedFile, fileId) {
+    const { filename } = editedFile;
+    await prisma.file.update({
+        where: {
+            id: fileId
+        },
+        data: {
+            filename: filename
+        },
+    })
 }
 
 /* main()
@@ -94,8 +137,12 @@ module.exports = {
     checkUsername,
     showAllFolders,
     createFolder,
+    deleteFolder,
     createFile,
+    deleteFile,
     getFolderFiles,
     getFolderInfo,
+    updateFolder,
     getSingleFile,
+    updateFile,
 }
