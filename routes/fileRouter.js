@@ -76,6 +76,13 @@ fileRouter.post('/folder/file/:id/delete', async (req, res, next) => {
     const file = await fileController.getFileInfo(req.params.id);
     await fileController.deleteFilePost(req.params.id);
     res.redirect(`/library/folder/${file.folderId}`)
+});
+
+fileRouter.get('/folder/:id/new-file', auth.isAuth, async (req, res, next) => {
+    const folder = await fileController.getFolderInfo(req.params.id);
+    res.render('uploadFolderFile', { folder: folder });
 })
+
+fileRouter.post('/folder/:id/new-file', upload.single('uploaded_file'), fileController.newFilePost);
 
 module.exports = fileRouter;

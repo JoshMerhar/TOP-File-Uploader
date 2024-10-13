@@ -44,5 +44,6 @@ model File {
   ownerId     Int
   folder      Folder      @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId    String
+  fileType    String      @default("#")
   url         String      @default("#")
 }

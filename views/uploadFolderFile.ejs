@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>File Upload</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="main-content">
+                <%- include("partials/errors.ejs") %>
+                <form action="/library/folder/<%= folder.id %>/new-file" enctype="multipart/form-data" method="POST">
+                    <input type="file" name="uploaded_file" />
+                    <label for="filename">Filename: </label>
+                    <input type="text" name="filename" id="filename" maxlength="50" required />
+                    <label for="file_folder">Folder: </label>
+                    <select name="file_folder" id="file_folder" required>
+                        <option value="<%= folder.id %>" selected="true"><%= folder.folderName %></option>
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
+                <a href="/library/folder/<%= folder.id %>">Cancel</a>
+            </div>
+        </div>
+    </body>
+</html>

@@ -52,12 +52,13 @@ async function deleteFolder(folderId) {
 }
 
 async function createFile(fileInfo) {
-  const { filename, ownerId, folderId, url } = fileInfo;
+  const { filename, ownerId, folderId, fileType, url } = fileInfo;
   await prisma.file.create({
       data: {
           filename: filename,
           ownerId: ownerId,
           folderId: folderId,
+          fileType: fileType,
           url: url
       }
   })

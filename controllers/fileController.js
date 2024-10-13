@@ -1,5 +1,25 @@
 const db = require('../db/queries');
 const { body, validationResult } = require("express-validator");
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({ secure: true });
+
+async function uploadFile(filePath) {
+    const options = {
+        resource_type: 'raw',
+        use_filename: true,
+        unique_filename: false,
+        overwrite: true,
+    };
+
+    try {
+        const result = await cloudinary.uploader.upload(filePath, options);
+        console.log(result);
+        return result.secure_url;
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 const validateFolder = [
     body("folderName").trim()
@@ -75,14 +95,16 @@ const newFilePost = [
                 errors: errors.array()
             });
         }
+        const fileURL = await uploadFile(req.file.path);
         const { filename, file_folder } = req.body;
+        const fileType = req.file.mimetype;
         const ownerId = req.user.id;
-        const url = req.file.filename;
         const newFile = {
             filename: filename,
             ownerId: ownerId,
             folderId: file_folder,
-            url: url
+            fileType: fileType,
+            url: fileURL
         }
         await db.createFile(newFile);
         res.redirect(`/library/folder/${file_folder}`);
