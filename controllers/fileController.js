@@ -1,7 +1,9 @@
 const db = require('../db/queries');
 const { body, validationResult } = require("express-validator");
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
 
+// Configure cloudinary
 cloudinary.config({ secure: true });
 
 async function uploadFile(filePath) {
@@ -21,6 +23,7 @@ async function uploadFile(filePath) {
     }
 };
 
+// Folder controls
 const validateFolder = [
     body("folderName").trim()
         .isLength({ min: 1, max: 50 }).withMessage("Folder name must be between 1 and 50 characters.")
@@ -75,6 +78,17 @@ async function getUserFolders(userId) {
     return folders;
 }
 
+async function getFolderInfo(folderId) {
+    const folder = await db.getFolderInfo(folderId);
+    return folder;
+}
+
+async function getFolderFiles(folderId) {
+    const files = await db.getFolderFiles(folderId);
+    return files;
+}
+
+//File controls
 const validateFile = [
     // body("uploaded_file").notEmpty(),
     body("filename").trim()
@@ -85,8 +99,15 @@ const validateFile = [
 const newFilePost = [
     validateFile,
     async (req, res) => {
-        // Logic to upload to Cloudinary goes here..?
-        // Replace url below with Cloudinary url when it's set up
+        if (!req.file) {
+            const folders = await db.showAllFolders(req.user.id);
+            const error = { msg: 'No file selected' }
+            return res.status(400).render('uploadFile', {
+                folders: folders,
+                errors: [error]
+            });
+        }
+
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const folders = await db.showAllFolders(req.user.id);
@@ -95,15 +116,18 @@ const newFilePost = [
                 errors: errors.array()
             });
         }
+        // Upload file to cloudinary and store resulting url in database
         const fileURL = await uploadFile(req.file.path);
         const { filename, file_folder } = req.body;
-        const fileType = req.file.mimetype;
         const ownerId = req.user.id;
+        const fileType = req.file.mimetype;
+        const fileSize = Math.round(req.file.size / 1000);
         const newFile = {
             filename: filename,
             ownerId: ownerId,
             folderId: file_folder,
             fileType: fileType,
+            fileSize: fileSize,
             url: fileURL
         }
         await db.createFile(newFile);
@@ -140,16 +164,6 @@ async function deleteFilePost(fileId) {
     await db.deleteFile(fileId);
 }
 
-async function getFolderInfo(folderId) {
-    const folder = await db.getFolderInfo(folderId);
-    return folder;
-}
-
-async function getFolderFiles(folderId) {
-    const files = await db.getFolderFiles(folderId);
-    return files;
-}
-
 async function getFileInfo(fileId) {
     const file = await db.getSingleFile(fileId);
     return file;
@@ -160,10 +174,10 @@ module.exports = {
     editFolderPost,
     deleteFolderPost,
     getUserFolders,
+    getFolderInfo,
+    getFolderFiles,
     newFilePost,
     editFilePost,
     deleteFilePost,
-    getFolderInfo,
-    getFolderFiles,
     getFileInfo,
 }

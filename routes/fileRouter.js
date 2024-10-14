@@ -2,7 +2,7 @@ const { Router } = require('express');
 const fileRouter = Router();
 const fileController = require('../controllers/fileController');
 const multer = require('multer');
-const upload = multer({ dest: './public/data/uploads' });
+const upload = multer({ dest: '../public/data/uploads', limits: { fileSize: 1024 * 1024 * 1 } }); // 1MB size limit
 const auth = require('./auth');
 
 // Library route
@@ -53,7 +53,7 @@ fileRouter.get('/new-file', auth.isAuth, async (req, res, next) => {
     res.render('uploadFile', { folders: folders });
 });
 
-fileRouter.post('/new-file', upload.single('uploaded_file'), fileController.newFilePost);
+fileRouter.post('/new-file', upload.single("uploaded_file"), fileController.newFilePost);
 
 fileRouter.get('/folder/file/:id', auth.isAuth, async (req, res, next) => {
     const file = await fileController.getFileInfo(req.params.id);
