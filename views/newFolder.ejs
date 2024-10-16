@@ -7,13 +7,16 @@
     <body>
         <div class="container">
             <div class="main-content">
+                <h1>Create Folder</h1>
                 <%- include("partials/errors.ejs") %>
-                <form action="/library/new-folder" method="POST">
-                    <label for="folderName">Name: </label>
-                    <input type="text" name="folderName" id="folderName" maxlength="50" required />
-                    <button type="submit">Submit</button>
+                <form class="input-form" action="/library/new-folder" method="POST">
+                    <div class="form-item">
+                        <label for="folderName">Name: </label>
+                        <input type="text" name="folderName" id="folderName" maxlength="50" required />
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                    <a href="/library">Cancel</a>
                 </form>
-                <a href="/library">Cancel</a>
             </div>
         </div>
     </body>

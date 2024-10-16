@@ -7,14 +7,18 @@
     <body>
         <div class="container">
             <div class="main-content">
-                <h1><%= file.filename %></h1>
-                <p>Download: <a href="<%= file.url %>"><%= file.filename %></a></p>
-                <p>Type: <%= file.fileType %></p>
-                <p>Size: <%= file.fileSize %> kB</p>
-                <p>Uploaded: <%= file.createdAt %></p>
-                <a href="/library/folder/file/<%= file.id %>/edit">Edit File Info</a>
-                <a href="/library/folder/file/<%= file.id %>/delete">Delete File</a>
-                <a href="/library/folder/<%= file.folderId %>">Back to Folder</a>
+                <div class="file-info">
+                    <h1 class="file-title"><b>File</b>: <%= file.filename %></h1>
+                    <p><b>Download</b>: <a href="<%= file.url %>"><%= file.filename %></a></p>
+                    <p><b>Type</b>: <%= file.fileType %></p>
+                    <p><b>Size</b>: <%= file.fileSize %> kB</p>
+                    <p><b>Uploaded</b>: <%= file.createdAt %></p>
+                </div>
+                <div class="links-container">
+                    <a href="/library/folder/file/<%= file.id %>/edit">Edit File Info</a>
+                    <a href="/library/folder/file/<%= file.id %>/delete">Delete File</a>
+                    <a href="/library/folder/<%= file.folderId %>">Back to Folder</a>
+                </div>
             </div>
         </div>
     </body>

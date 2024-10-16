@@ -9,16 +9,26 @@
             <div class="main-content">
                 <div class="files-container">
                     <h1><%= folder.folderName %></h1>
-                    <% if (files) { %>
+                    <% if (files.length > 0) { %>
                         <% files.forEach(file => { %>
-                            <h3><a href="/library/folder/file/<%= file.id %>"><%= file.filename %></a></h3>
+                            <div class="file-info-row">
+                                <h3><a href="/library/folder/file/<%= file.id %>"><%= file.filename %></a></h3>
+                                <div class="file-details-cell">
+                                    <p><b>Type</b>: <%= file.fileType %></p>
+                                    <p><b>Size</b>: <%= file.fileSize %> kB</p>
+                                </div>
+                            </div>
                         <% }) %>    
+                    <% } else { %>
+                        <div><h3>No files to show!</h3></div>    
                     <% } %>
                 </div>
-                <a href="/library/folder/<%= folder.id %>/new-file">Upload File</a>
-                <a href="/library/folder/<%= folder.id %>/edit">Edit Folder Info</a>
-                <a href="/library/folder/<%= folder.id %>/delete">Delete Folder</a>
-                <a href="/library">Library</a>
+                <div class="links-container">
+                    <a href="/library/folder/<%= folder.id %>/new-file">Upload File</a>
+                    <a href="/library/folder/<%= folder.id %>/edit">Edit Folder Info</a>
+                    <a href="/library/folder/<%= folder.id %>/delete">Delete Folder</a>
+                    <a href="/library">Library</a>
+                </div>
             </div>
         </div>
     </body>

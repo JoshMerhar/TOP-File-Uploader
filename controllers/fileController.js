@@ -16,7 +16,6 @@ async function uploadFile(filePath) {
 
     try {
         const result = await cloudinary.uploader.upload(filePath, options);
-        console.log(result);
         return result.secure_url;
     } catch (error) {
         console.error(error);
@@ -86,6 +85,15 @@ async function getFolderInfo(folderId) {
 async function getFolderFiles(folderId) {
     const files = await db.getFolderFiles(folderId);
     return files;
+}
+
+async function countFolderFiles(folders) {
+    const fileCounts = [];
+    for (const folder of folders) {
+        const fileCount = await db.countFolderFiles(folder.id);
+        fileCounts.push(fileCount);
+    }
+    return fileCounts;
 }
 
 //File controls
@@ -176,6 +184,7 @@ module.exports = {
     getUserFolders,
     getFolderInfo,
     getFolderFiles,
+    countFolderFiles,
     newFilePost,
     editFilePost,
     deleteFilePost,

@@ -7,18 +7,26 @@
     <body>
         <div class="container">
             <div class="main-content">
+                <h1>Upload File to the folder "<%= folder.folderName %>"</h1>
                 <%- include("partials/errors.ejs") %>
-                <form action="/library/folder/<%= folder.id %>/new-file" enctype="multipart/form-data" method="POST">
-                    <input type="file" name="uploaded_file" />
-                    <label for="filename">Filename: </label>
-                    <input type="text" name="filename" id="filename" maxlength="50" required />
-                    <label for="file_folder">Folder: </label>
-                    <select name="file_folder" id="file_folder" required>
-                        <option value="<%= folder.id %>" selected="true"><%= folder.folderName %></option>
-                    </select>
-                    <button type="submit">Submit</button>
+                <form class="input-form" action="/library/folder/<%= folder.id %>/new-file" enctype="multipart/form-data" method="POST">
+                    <div class="form-item">
+                        <label for="uploaded_file">File (Max 1 MB / 1,000 kB): </label>
+                        <input type="file" name="uploaded_file" />
+                    </div>
+                    <div class="form-item">
+                        <label for="filename">Filename: </label>
+                        <input type="text" name="filename" id="filename" maxlength="50" required />
+                    </div>
+                    <div class="form-item">
+                        <label for="file_folder">Folder: </label>
+                        <select name="file_folder" id="file_folder" required>
+                            <option value="<%= folder.id %>" selected="true"><%= folder.folderName %></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                    <a href="/library/folder/<%= folder.id %>">Cancel</a>
                 </form>
-                <a href="/library/folder/<%= folder.id %>">Cancel</a>
             </div>
         </div>
     </body>

@@ -10,11 +10,14 @@
                 <h1>Welcome, <%= username %>.</h1>
                 <div class="folders-container">
                     <% if (folders.length > 0) { %>
-                        <% folders.forEach(folder => { %>
+                        <% folders.forEach((folder, i) => { %>
                             <div class="folder-row">
                                 <h3><a href="/library/folder/<%= folder.id %>"><%= folder.folderName %></a></h3>
+                                <div><b>File Count</b>: <%= fileCounts[i] %></div>
                             </div>    
                         <% }) %>    
+                    <% } else { %>
+                        <div><h3>No folders to show!</h3></div>    
                     <% } %>
                 </div>
                 <div class="links-container">

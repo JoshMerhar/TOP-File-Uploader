@@ -8,9 +8,11 @@ const auth = require('./auth');
 // Library route
 fileRouter.get('/', auth.isAuth, async (req, res, next) => {
     const folders = await fileController.getUserFolders(req.user.id);
+    const fileCounts = await fileController.countFolderFiles(folders);
     res.render('userLibrary', { 
         username: req.user.username,
-        folders: folders
+        folders: folders,
+        fileCounts: fileCounts
      });
 });
 

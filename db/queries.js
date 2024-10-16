@@ -103,6 +103,15 @@ async function updateFolder(editedFolder, folderId) {
     })
 }
 
+async function countFolderFiles(folderId) {
+    const fileCount = await prisma.file.count({
+        where: {
+            folderId: folderId
+        }
+    })
+    return fileCount;
+}
+
 async function getSingleFile(fileId) {
     const file = await prisma.file.findUnique({
         where: {
@@ -145,6 +154,7 @@ module.exports = {
     getFolderFiles,
     getFolderInfo,
     updateFolder,
+    countFolderFiles,
     getSingleFile,
     updateFile,
 }

@@ -7,6 +7,11 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    color: whitesmoke;
+}
+
+a {
+    color: whitesmoke;
 }
 
 .errors-list {
@@ -28,16 +33,17 @@ body {
     grid-template-columns: repeat(10, 1fr);
     height: 100%;
     margin: auto;
+    background-color: darkslategray ;
 }
 
 .main-content {
-    grid-column: 3/9;
+    grid-column: 2/10;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: .2rem;
     width: 100%;
+    background-color: darkslategray;
 }
 
 .input-form {
@@ -47,7 +53,7 @@ body {
     margin: 0 auto;
     gap: 10px;
     padding: 2rem;
-    background-color:  #DAF7A6;
+    background-color:  slategray;
     box-shadow: 5px 5px 5px black;
     border-radius: 8px;
     width: 75%;
@@ -65,7 +71,7 @@ body {
     box-shadow: 5px 5px 5px black;
     border-radius: 7px;
     transition: .2s;
-    background-color: #FFC300;
+    background-color: whitesmoke;
     color: black;
     text-decoration: none;
     font-size: 24px;
@@ -73,6 +79,75 @@ body {
 
 .custom-button:hover {
     transform: scale(1.1);
-    background-color: #ffdd6c;
     cursor: pointer;
+}
+
+.submit-button {
+    margin: auto;
+    padding: .5rem 2rem;
+    font-size: 18px;
+    border-style: none;
+    box-shadow: 5px 5px 5px black;
+    border-radius: 7px;
+    transition: .2s;
+    background-color:  whitesmoke;
+}
+
+.submit-button:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.folders-container,
+.files-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: .7rem;
+    padding-bottom: 1rem;
+}
+
+.folder-row,
+.file-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    border: solid 2px black;
+    border-radius: 8px;
+    padding: 0 2rem;
+    box-shadow: 5px 5px 5px black;
+    background-color: slategray;
+}
+
+.file-details-cell {
+    display: flex;
+    gap: 2rem;
+}
+
+.file-title {
+    text-align: center;
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    background-color: slategray;
+    margin-top: 2rem;
+    padding: 0 4rem 2rem 4rem;
+    border: solid 2px black;
+    border-radius: 8px;
+    box-shadow: 5px 5px 5px black;
+    width: 80%;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-top: 1rem;
+    width: 80%;
 }

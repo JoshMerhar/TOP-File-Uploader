@@ -7,13 +7,16 @@
     <body>
         <div class="container">
             <div class="main-content">
+                <h1>Edit File Info</h1>
                 <%- include("partials/errors.ejs") %>
-                <form action="/library/folder/file/<%= file.id %>/edit" method="POST">
-                    <label for="filename">Filename: </label>
-                    <input type="text" name="filename" id="filename" maxlength="50" value="<%= file.filename %>" required />
-                    <button type="submit">Submit</button>
+                <form class="input-form" action="/library/folder/file/<%= file.id %>/edit" method="POST">
+                    <div class="form-item">
+                        <label for="filename">Filename: </label>
+                        <input type="text" name="filename" id="filename" maxlength="50" value="<%= file.filename %>" required />
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                    <a href="/library/folder/file/<%= file.id %>">Cancel</a>
                 </form>
-                <a href="/library/folder/file/<%= file.id %>">Cancel</a>
             </div>
         </div>
     </body>
