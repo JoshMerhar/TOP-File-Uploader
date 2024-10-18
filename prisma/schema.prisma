@@ -47,4 +47,5 @@ model File {
   fileType    String      @default("#")
   fileSize    Int         @default(0)
   url         String      @default("#")
+  publicId    String      @default("#")
 }

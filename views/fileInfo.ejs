@@ -7,8 +7,8 @@
     <body>
         <div class="container">
             <div class="main-content">
+                <h1 class="file-title"><b>File</b>: <%= file.filename %></h1>
                 <div class="file-info">
-                    <h1 class="file-title"><b>File</b>: <%= file.filename %></h1>
                     <p><b>Download</b>: <a href="<%= file.url %>"><%= file.filename %></a></p>
                     <p><b>Type</b>: <%= file.fileType %></p>
                     <p><b>Size</b>: <%= file.fileSize %> kB</p>

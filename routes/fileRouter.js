@@ -2,7 +2,8 @@ const { Router } = require('express');
 const fileRouter = Router();
 const fileController = require('../controllers/fileController');
 const multer = require('multer');
-const upload = multer({ dest: '../public/data/uploads', limits: { fileSize: 1024 * 1024 * 1 } }); // 1MB size limit
+const upload = multer({ dest: './public/data/uploads', limits: { fileSize: 1024 * 1024 * 1 } }); // 1MB size limit
+const fs = require('fs');
 const auth = require('./auth');
 
 // Library route
@@ -46,7 +47,7 @@ fileRouter.get('/folder/:id/delete', auth.isAuth, async (req, res, next) => {
 
 fileRouter.post('/folder/:id/delete', async (req, res, next) => {
     await fileController.deleteFolderPost(req.params.id);
-    res.redirect('/');
+    res.redirect('/library');
 });
 
 // File routes
@@ -74,10 +75,21 @@ fileRouter.get('/folder/file/:id/delete', auth.isAuth, async (req, res, next) =>
     res.render('deleteFile', { file: file });
 });
 
+function multerDelete(filePath) {
+    fs.unlink(`./public/data/uploads/${filePath}`, (err) => {
+        if (err) {
+            console.error('Error deleting file: ', err);
+        } else {
+            console.log('File deleted successfully');
+        }
+    });
+};
+
 fileRouter.post('/folder/file/:id/delete', async (req, res, next) => {
     const file = await fileController.getFileInfo(req.params.id);
-    await fileController.deleteFilePost(req.params.id);
-    res.redirect(`/library/folder/${file.folderId}`)
+    await fileController.deleteFilePost(file);
+    multerDelete(file.publicId);
+    res.redirect(`/library/folder/${file.folderId}`);
 });
 
 fileRouter.get('/folder/:id/new-file', auth.isAuth, async (req, res, next) => {

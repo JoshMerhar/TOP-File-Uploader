@@ -151,3 +151,10 @@ a {
     padding-top: 1rem;
     width: 80%;
 }
+
+.login-page-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+}

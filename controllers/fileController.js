@@ -16,7 +16,7 @@ async function uploadFile(filePath) {
 
     try {
         const result = await cloudinary.uploader.upload(filePath, options);
-        return result.secure_url;
+        return result;
     } catch (error) {
         console.error(error);
     }
@@ -125,7 +125,9 @@ const newFilePost = [
             });
         }
         // Upload file to cloudinary and store resulting url in database
-        const fileURL = await uploadFile(req.file.path);
+        const result = await uploadFile(req.file.path);
+        const fileURL = result.secure_url;
+        const publicId = result.public_id;
         const { filename, file_folder } = req.body;
         const ownerId = req.user.id;
         const fileType = req.file.mimetype;
@@ -136,7 +138,8 @@ const newFilePost = [
             folderId: file_folder,
             fileType: fileType,
             fileSize: fileSize,
-            url: fileURL
+            url: fileURL,
+            publicId: publicId
         }
         await db.createFile(newFile);
         res.redirect(`/library/folder/${file_folder}`);
@@ -168,8 +171,14 @@ const editFilePost = [
     }
 ];
 
-async function deleteFilePost(fileId) {
-    await db.deleteFile(fileId);
+async function deleteFilePost(file) {
+    try {
+        await cloudinary.uploader.destroy(`${file.publicId}`, { type: 'upload', resource_type: 'raw' });
+        await db.deleteFile(file.id);
+    } catch (error) {
+        console.log(error);
+    }
+    
 }
 
 async function getFileInfo(fileId) {
