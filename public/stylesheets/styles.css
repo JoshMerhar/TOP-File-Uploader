@@ -12,6 +12,11 @@ body {
 
 a {
     color: whitesmoke;
+    transition: .2s;
+}
+
+a:hover {
+    color: black;
 }
 
 .errors-list {
@@ -104,8 +109,10 @@ a {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: .7rem;
-    padding-bottom: 1rem;
+    border: solid 2px black;
+    border-radius: 8px;
+    box-shadow: 5px 5px 5px black;
+    background-color: slategray;
 }
 
 .folder-row,
@@ -114,15 +121,29 @@ a {
     justify-content: space-between;
     align-items: center;
     width: 90%;
-    border: solid 2px black;
-    border-radius: 8px;
     padding: 0 2rem;
-    box-shadow: 5px 5px 5px black;
-    background-color: slategray;
+    border-top: 2px solid black;
 }
+
+.folder-row-borderless,
+.file-info-row-borderless {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 0 2rem;
+}
+
+.folder-row-right {
+    display: flex;
+    gap: 3rem;
+}
+
+
 
 .file-details-cell {
     display: flex;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -135,8 +156,8 @@ a {
     flex-direction: column;
     font-size: 18px;
     background-color: slategray;
-    margin-top: 2rem;
-    padding: 0 4rem 2rem 4rem;
+    margin-top: 1rem;
+    padding: 0 4rem;
     border: solid 2px black;
     border-radius: 8px;
     box-shadow: 5px 5px 5px black;
@@ -150,6 +171,7 @@ a {
     gap: 5px;
     padding-top: 1rem;
     width: 80%;
+    font-size: 20px;
 }
 
 .login-page-links {
@@ -157,4 +179,16 @@ a {
     flex-direction: column;
     align-items: center;
     padding-top: 1rem;
+}
+
+.icon-item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.icon-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
