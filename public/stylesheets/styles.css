@@ -103,6 +103,10 @@ a:hover {
     cursor: pointer;
 }
 
+.login-link {
+    font-size: 24px;
+}
+
 .folders-container,
 .files-container {
     display: flex;

@@ -13,7 +13,7 @@ async function createUser(userInfo) {
 }
 
 async function checkUsername(username) {
-    const usernameTaken = await prisma.user.findUniqueOrThrow({
+    const usernameTaken = await prisma.user.findUnique({
         where: {
             username: username
         }

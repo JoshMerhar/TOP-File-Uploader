@@ -8,13 +8,13 @@ async function newUserGet(req, res) {
 
 const validateUser = [
     body("username").trim()
-        .isLength({ min: 1, max: 50 }).withMessage("Username must be between 1 and 50 characters."),
+        .isLength({ min: 1, max: 50 }).withMessage("Username must be between 1 and 50 characters"),
     body("password").trim()
-        .isLength({ min: 5 }).withMessage("Password must contain at least 5 characters."),
+        .isLength({ min: 5 }).withMessage("Password must contain at least 5 characters"),
     body("passwordConfirm").trim()
         .custom((value, { req }) => {
             return value === req.body.password;
-        }).withMessage("Passwords don't match!"),
+        }).withMessage("Passwords don't match"),
 ];
 
 const newUserPost = [
