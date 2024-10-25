@@ -4,7 +4,7 @@
   "description": "TOP's File Uploader project. Created with Express (Node.js), Prisma ORM, Passport, and EJS.",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch app.js && npx prisma migrate dev",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
